@@ -8,12 +8,14 @@ Terminal/Process: start_process, interact_with_process, read_process_output, lis
 Search: start_search, get_more_search_results, stop_search, list_searches
 Meta: get_recent_tool_calls, get_usage_stats, get_prompts, give_feedback_to_desktop_commander
 
-## Target +25 New Tools (production requirements mandatory)
-Every new tool MUST ship with: versioned schema, explicit timeout, bounded memory/result size, limited retries + circuit breaker, idempotency notes, explicit error surface, hierarchical observability hook, environment-agnostic implementation.
+## New tools (dce.tool.v1) — implemented
+| Name | Status | timeoutMs | maxResultBytes | circuitBreakerKey |
+|------|--------|-----------|----------------|-------------------|
+| get_system_overview | done | 10000 | 32768 | system.overview |
+| get_cpu_per_core | done | 10000 | 65536 | system.cpu_per_core |
 
-### Batch A — System Observability (priority 1)
-1. get_system_overview
-2. get_cpu_per_core
+## Target remaining (Batch A–F)
+### Batch A — System Observability
 3. get_top_consumers
 4. get_network_stats
 5. get_disk_usage (path + depth bounded)
@@ -26,29 +28,15 @@ Every new tool MUST ship with: versioned schema, explicit timeout, bounded memor
 10. wait_for_process (deadline)
 
 ### Batch C — Desktop / Human Interface
-11. read_clipboard
-12. write_clipboard
-13. send_notification
-14. get_display_info
-15. capture_screenshot (size-bounded)
+11–15. clipboard, notification, display, screenshot
 
 ### Batch D — Agent Orchestration & Safety
-16. create_resource_budget / check_budget
-17. snapshot_state / restore_state
-18. query_audit_trail
-19. get_circuit_breaker_status
-20. run_sandboxed_code
+16–20. resource budget, state snapshot, audit query, circuit status, sandboxed code
 
 ### Batch E — Config / Updates / Integrity
-21. config_version_history
-22. rollback_config
-23. check_for_updates_tuf
-24. rotate_keys
+21–24. config history/rollback, TUF update check, key rotation
 
-### Batch F — Filesystem / Search Enhancements
-25. watch_path (bounded event stream + timeout)
+### Batch F
+25. watch_path (bounded)
 
-## Implementation Status
-- Baseline: mapped
-- New tools: 0 implemented
-- Next: Batch A after scaffold
+Every new tool MUST ship with: versioned schema, explicit timeout, bounded memory/result size, limited retries + circuit breaker, idempotency notes, explicit error surface, hierarchical observability hook, environment-agnostic implementation.

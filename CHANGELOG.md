@@ -3,17 +3,15 @@
 ## [Unreleased]
 
 ### Added
-- Versioned tool substrate `dce.tool.v1`: ToolDefinition, ToolRegistry, CircuitBreaker.
-- package.json + strict tsconfig (NodeNext, strict, noUnusedLocals).
-- Entry exports in src/index.ts with DCE_IDENTITY.
-- Bounded registry (maxTools), per-tool timeout + maxResultBytes, circuit breaker with capped keys.
+- get_system_overview (dce.system_overview.v1) — load, memory, uptime, platform
+- get_cpu_per_core (dce.cpu_per_core.v1) — per-logical-CPU times/speed
+- registerBatchAObservability() helper
 
-### Changed
-- PROGRESS.md now points next wake at first Batch A tool (get_system_overview).
+## [0.1.1-batch-a-partial] — 2026-09-07
+- First two Batch A observability tools on dce.tool.v1 substrate.
 
 ## [0.1.0-substrate] — 2026-09-07
-- First durable code beyond tracking files.
-- Manual commit after automation runs failed to push.
+- ToolRegistry, CircuitBreaker, dce.tool.v1 types, package.json, tsconfig.
 
 ## [0.0.0] — 2026-09-06
-- Repo bootstrap under tycuz-liberator; tracking files only.
+- Repo bootstrap; tracking files only.

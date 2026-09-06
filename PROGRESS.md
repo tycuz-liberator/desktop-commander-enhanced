@@ -17,24 +17,25 @@
 - Crypto identity / signed envelopes / replay protection / key rotation grace / TUF-compatible updates where remote or self-update is involved
 - Never prototype-grade code. Explicitly refuse non-production-safe paths.
 
-## Current Status (2026-09-07 ~00:30 EAT)
+## Current Status (2026-09-07 ~00:40 EAT)
 - **GitHub repo**: tycuz-liberator/desktop-commander-enhanced
-- **Automation**: c44e77b6-5376-47d3-9891-14039bbf378d (hourly; many wakes claimed scaffold but never pushed)
-- **Baseline tool count**: ~26 (upstream, not yet vendored)
-- **New tools implemented**: 0
-- **Substrate**: versioned registry + circuit breaker landed (dce.tool.v1)
+- **Automation**: c44e77b6-5376-47d3-9891-14039bbf378d (hourly; still unreliable on push)
+- **Baseline tool count**: ~26 (upstream, not vendored)
+- **New tools implemented**: 2 — get_system_overview, get_cpu_per_core
+- **Substrate**: dce.tool.v1 registry + circuit breaker
 
 ## Completed
-1. Repo + tracking files bootstrap (a02e57a).
-2. **Manual first durable code commit**: package.json, tsconfig, src/types/tool.ts, src/core/circuit-breaker.ts, src/core/registry.ts, src/index.ts — bounded ToolRegistry with timeout enforcement, result size limits, circuit breaker, no module-level mutable singleton.
+1. Repo + tracking bootstrap (a02e57a).
+2. dce.tool.v1 registry + circuit breaker substrate (1cc4018).
+3. Batch A partial: get_system_overview + get_cpu_per_core with versioned defs, timeouts, maxResultBytes, circuit keys, registerBatchAObservability helper.
 
-## Exact next action for subsequent automation run
+## Exact next action for subsequent run
 1. git pull --ff-only origin main
-2. Read this PROGRESS.md + TOOL_INVENTORY.md
-3. Implement first Batch A tool: `get_system_overview` (versioned schema, timeoutMs, maxResultBytes, circuitBreakerKey, idempotency note) registered via ToolRegistry
-4. Optionally add get_cpu_per_core if time remains in the same increment (still one coherent commit)
-5. Update TOOL_INVENTORY.md + CHANGELOG.md + this file; commit; push
+2. Implement next Batch A tools (prefer one coherent commit):
+   - get_top_consumers (bounded N, sorted by cpu or mem; no unbounded proc dump)
+   - and/or get_network_stats (interface summary, bounded)
+3. Register them in register-batch-a.ts; update TOOL_INVENTORY + CHANGELOG + this file
+4. commit + push
 
 ## Blockers
-- Automation runs were not pushing; durable progress was stalled until this manual commit.
-- Next wakes must pull this commit before doing work or they will re-scaffold against empty tree.
+- Automation often succeeds in conversation but does not push; durable progress advanced manually when needed.
