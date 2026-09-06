@@ -3,14 +3,17 @@
 ## [Unreleased]
 
 ### Added
-- GitHub repo tycuz-liberator/desktop-commander-enhanced created.
-- Progress tracking scaffolding (PROGRESS.md, CHANGELOG.md, TOOL_INVENTORY.md, README.md).
-- Design list of 25 target production-grade tools.
-- Constraint set locked for every future increment.
+- Versioned tool substrate `dce.tool.v1`: ToolDefinition, ToolRegistry, CircuitBreaker.
+- package.json + strict tsconfig (NodeNext, strict, noUnusedLocals).
+- Entry exports in src/index.ts with DCE_IDENTITY.
+- Bounded registry (maxTools), per-tool timeout + maxResultBytes, circuit breaker with capped keys.
 
 ### Changed
-- Durable source of truth moved to GitHub (previous automation runs were ephemeral).
+- PROGRESS.md now points next wake at first Batch A tool (get_system_overview).
+
+## [0.1.0-substrate] — 2026-09-07
+- First durable code beyond tracking files.
+- Manual commit after automation runs failed to push.
 
 ## [0.0.0] — 2026-09-06
-- Project bootstrap under tycuz-liberator (personal, isolated from chronarch).
-- Source of truth: fork/extension of wonderwhy-er/DesktopCommanderMCP (MIT).
+- Repo bootstrap under tycuz-liberator; tracking files only.
